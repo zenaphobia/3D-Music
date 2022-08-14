@@ -1,0 +1,42 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap");
+
+.start-menu {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+}
+#start-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  background-color: black;
+  font-size: 250px;
+  font-family: "Oswald";
+  text-transform: uppercase;
+  width: auto;
+  border-style: solid;
+  border-width: 5px;
+  padding-left: 75px;
+  padding-right: 75px;
+  transition: padding-right 0.25s, padding-left 0.25s;
+  -webkit-transition: padding-right 0.25s, padding-left 0.25s;
+  -moz-transition: padding-right 0.25s, padding-left 0.25s;
+  -ms-transition: padding-right 0.25s, padding-left 0.25s;
+  -o-transition: padding-right 0.25s, padding-left 0.25s;
+}
+#start-button:hover {
+  padding-right: 100px;
+  padding-left: 100px;
+}
+.entry {
+  display: flex;
+  justify-content: center;
+}
+#canvas {
+  width: 95vw;
+  min-height: 95vh;
+  background-color: black;
+}
