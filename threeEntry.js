@@ -67,7 +67,7 @@ function init(){
 }
 
 function animate() {
-    requestAnimationFrame( animate );
+    requestAnimationFrame(animate);
     renderer.render( scene, camera );
     data = analyser.getAverageFrequency();
     console.log(data);
