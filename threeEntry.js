@@ -5,7 +5,7 @@ let scene, camera, container, renderer, fileLoader
 let listener, sound, data, analyser, audioLoader
 
 //temp stuff
-let material, geometry, sphere
+let material, geometry, sphere, customShader
 
 //shaders
 
@@ -23,6 +23,17 @@ void main()
     gl_FragColor = vec4( colorMine, clamp(sin(u_time / 2.0), 0.5, .75) );
 }
 `;
+
+customShader = new THREE.ShaderMaterial({
+    uniforms: {
+        time: { value: 1.0 },
+        resolution: { value: new THREE.Vector2()},
+        vertexMod: { value: 1.0 },
+
+        vertexShader: vert,
+        fragmentShader: frag,
+    }
+});
 
 document.getElementById('start-button').addEventListener("click", function(){onClick()});
 
