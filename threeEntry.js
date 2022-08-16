@@ -6,22 +6,8 @@ let scene, camera, container, renderer, fileLoader
 let listener, sound, data, analyser, audioLoader
 
 //temp stuff
-let material, geometry, sphere, customShader
+let material, geometry, sphere, customShader, clock
 
-//shaders
-
-
-
-customShader = new THREE.ShaderMaterial({
-    uniforms: {
-        time: { value: 1.0 },
-        resolution: { value: new THREE.Vector2()},
-        vertexMod: { value: 1.0 },
-
-        vertexShader: vert,
-        fragmentShader: frag,
-    }
-});
 
 document.getElementById('start-button').addEventListener("click", function(){onClick()});
 
@@ -39,9 +25,19 @@ function init(){
     renderer.setSize( container.offsetWidth, container.offsetHeight );
     renderer.setPixelRatio( window.devicePixelRatio );
 
-    geometry = new THREE.SphereGeometry( 5, 32, 16 );
+    customShader = new THREE.ShaderMaterial({
+        uniforms: {
+            time: { value: 1.0 },
+            resolution: { value: new THREE.Vector2()},
+            vertexMod: { value: 1.0 },
+        },
+        vertexShader: vert,
+        fragmentShader: frag
+    });
+
+    geometry = new THREE.SphereGeometry( 5, 64, 32 );
     material = new THREE.MeshBasicMaterial({color: 0x00ff00 });
-    sphere = new THREE.Mesh( geometry, material );
+    sphere = new THREE.Mesh( geometry, customShader );
 
     const listener = new THREE.AudioListener();
     camera.add(listener);
@@ -62,14 +58,20 @@ function init(){
 
     camera.lookAt(sphere.position);
 
+    console.log(sphere.material);
+
     animate();
 }
 
 function animate() {
     requestAnimationFrame(animate);
     renderer.render( scene, camera );
+    sphere.material.uniforms.time.value += 0.1;
+
+    //Music modulation
     data = analyser.getAverageFrequency();
-    console.log(data);
+    sphere.material.uniforms.vertexMod.value = data;
+
 };
 
 function onClick(){

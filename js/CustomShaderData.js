@@ -12,12 +12,13 @@ precision highp int;
 
 // Default uniforms provided by ShaderFrog.
 // uniform vec3 cameraPosition;
-// uniform float time;
+uniform float time;
+uniform float vertexMod;
 
 // Default attributes provided by THREE.js. Attributes are only available in the
 // vertex shader. You can pass them to the fragment shader using varyings
-// attribute vec3 position;
-// attribute vec3 normal;
+//attribute vec3 position;
+//attribute vec3 normal;
 // attribute vec2 uv;
 // attribute vec2 uv2;
 
@@ -188,7 +189,7 @@ float pnoise(vec3 P, vec3 rep)
   vec3 fade_xyz = fade(Pf0);
   vec4 n_z = mix(vec4(n000, n100, n010, n110), vec4(n001, n101, n011, n111), fade_xyz.z);
   vec2 n_yz = mix(n_z.xy, n_z.zw, fade_xyz.y);
-  float n_xyz = mix(n_yz.x, n_yz.y, fade_xyz.x); 
+  float n_xyz = mix(n_yz.x, n_yz.y, fade_xyz.x);
   return 2.2 * n_xyz;
 }
 
@@ -208,12 +209,13 @@ float turbulence( vec3 p ) {
 
 void main() {
 
-    vNormal = normal;
-    vUv = uv;
-    vUv2 = uv2;
-    vPosition = position;
+    // vNormal = normal;
+    // vUv = uv;
+    // vUv2 = uv2;
+    // vPosition = position;
+
   // get a turbulent 3d noise using the normal, normal to high freq
-  noise = 10.0 *  -.0035 * turbulence( 1.0 * normal + time / 10.0) ;
+  noise = 10.0 *  (-.0035 * (vertexMod / 25.0)) * turbulence( 1.0 * normal + time / 25.0) ;
   // get a 3d noise using the position, low frequency
   float b = 5.0 * pnoise( 0.05 * position, vec3( 100.0 ) );
   // compose both noises
@@ -231,8 +233,8 @@ varying vec3 vNormal;
 uniform vec3 colorMine;
 void main()
 {
-    vec3 colorMine = vec3(55,0,0);
-    gl_FragColor = vec4( colorMine, clamp(sin(u_time / 2.0), 0.5, .75) );
+    vec3 color = vec3 ( .3, .70, .25);
+    gl_FragColor = vec4( color, 1.0 );
 }
 `;
 
