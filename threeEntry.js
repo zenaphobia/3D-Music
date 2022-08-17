@@ -69,8 +69,8 @@ function animate() {
     requestAnimationFrame(animate);
     renderer.render( scene, camera );
     sphere.material.uniforms.time.value += 0.1;
-    // sphere.rotation.x += 0.01;
-    // sphere.rotation.y += 0.01;
+    sphere.rotation.x += 0.001;
+    //sphere.rotation.z += 0.0005;
 
 
     //Music modulation
