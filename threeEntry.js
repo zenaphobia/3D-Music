@@ -17,8 +17,9 @@ function init(){
     fileLoader = new THREE.FileLoader();
     camera = new THREE.PerspectiveCamera( 25, container.offsetWidth / container.offsetHeight, 0.1, 50 );
     camera.aspect = (container.offsetWidth / container.offsetHeight);
-    camera.position.z = 25;
-    camera.position.y = 15;
+    //camera.position.z = 25;
+    camera.position.y = 25;
+    camera.position.x = 15
 
 
     renderer = new THREE.WebGLRenderer({canvas: container, antialias: true, alpha: true});
@@ -38,6 +39,8 @@ function init(){
     geometry = new THREE.SphereGeometry( 5, 64, 32 );
     material = new THREE.MeshBasicMaterial({color: 0x00ff00 });
     sphere = new THREE.Mesh( geometry, customShader );
+    sphere.position.set(0,0,0);
+
 
     const listener = new THREE.AudioListener();
     camera.add(listener);
@@ -55,10 +58,9 @@ function init(){
     data = analyser.getAverageFrequency();
 
     scene.add( sphere );
+    camera.lookAt(0,2.5,0);
 
-    camera.lookAt(sphere.position);
-
-    console.log(sphere.material);
+    console.log(sphere.position);
 
     animate();
 }
@@ -67,6 +69,9 @@ function animate() {
     requestAnimationFrame(animate);
     renderer.render( scene, camera );
     sphere.material.uniforms.time.value += 0.1;
+    // sphere.rotation.x += 0.01;
+    // sphere.rotation.y += 0.01;
+
 
     //Music modulation
     data = analyser.getAverageFrequency();
