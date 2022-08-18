@@ -31,6 +31,7 @@ function init(){
             time: { value: 1.0 },
             resolution: { value: new THREE.Vector2()},
             vertexMod: { value: 1.0 },
+            iResolution: {value: new THREE.Vector3()}
         },
         vertexShader: vert,
         fragmentShader: frag
@@ -69,6 +70,7 @@ function animate() {
     requestAnimationFrame(animate);
     renderer.render( scene, camera );
     sphere.material.uniforms.time.value += 0.1;
+    sphere.material.uniforms.iResolution.value.set(canvas.width, canvas.height, 1);
     sphere.rotation.x += 0.001;
     //sphere.rotation.z += 0.0005;
 
