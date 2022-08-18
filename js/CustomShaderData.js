@@ -251,10 +251,21 @@ uniform vec3 color;
 varying vec2 vUv;
 varying vec3 vNormal;
 varying vec3 newPosition;
+varying float noise;
 
-void main()	{
-  vec3 color = vec3 (1.0,0.25,0.67);
-  gl_FragColor = vec4(newPosition, 1.0);
+void main() {
+
+vec2 st = gl_FragCoord.xy/iResolution.xy;
+
+vec3 color1 = vec3(1.9,0.55,0);
+vec3 color2 = vec3(0.226,0.000,0.615);
+
+float mixValue = distance(st,vec2(0,1));
+vec3 color = mix(color1,color2,mixValue);
+
+gl_FragColor = vec4(color,mixValue);
+
+
 }
   `
 

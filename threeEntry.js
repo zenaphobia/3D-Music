@@ -38,7 +38,6 @@ function init(){
     });
 
     geometry = new THREE.SphereGeometry( 5, 64, 32 );
-    material = new THREE.MeshBasicMaterial({color: 0x00ff00 });
     sphere = new THREE.Mesh( geometry, customShader );
     sphere.position.set(0,0,0);
 
@@ -48,10 +47,10 @@ function init(){
     sound = new THREE.Audio(listener);
 
     audioLoader = new THREE.AudioLoader();
-    audioLoader.load('/audio/Mr.Kitty-After Dark.mp3', function(buffer){
+    audioLoader.load('/audio/Halogen-UGotThat.mp3', function(buffer){
         sound.setBuffer(buffer);
         sound.setLoop(true);
-        sound.setVolume(0.5);
+        sound.setVolume(1);
         sound.play();
     });
 
@@ -69,9 +68,9 @@ function init(){
 function animate() {
     requestAnimationFrame(animate);
     renderer.render( scene, camera );
-    sphere.material.uniforms.time.value += 0.1;
+    sphere.material.uniforms.time.value += 0.01;
     sphere.material.uniforms.iResolution.value.set(canvas.width, canvas.height, 1);
-    sphere.rotation.x += 0.001;
+    sphere.rotation.x += 0.01;
     //sphere.rotation.z += 0.0005;
 
 
